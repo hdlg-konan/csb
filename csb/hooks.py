@@ -177,3 +177,4 @@ app_license = "MIT"
 # 	"csb.auth.validate"
 # ]
 
+fixtures = ['Custom Field']
