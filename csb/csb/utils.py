@@ -1,5 +1,5 @@
 import frappe
-import paystakk
+import csb
 
 
 def make_payment_entry(docname):

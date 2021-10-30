@@ -5,7 +5,7 @@
 from __future__ import unicode_literals
 
 import frappe
-import paystakk
+import csb
 from frappe import _
 from frappe.integrations.utils import create_payment_gateway
 from frappe.model.document import Document
