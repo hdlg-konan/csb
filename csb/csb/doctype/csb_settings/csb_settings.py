@@ -63,7 +63,7 @@ class CSBSettings(Document):
 
 		secret_key = self.get_password(fieldname='secret_key', raise_exception=False)
 
-		customer_api = paystakk.Customer(secret_key=secret_key, public_key=self.public_key)
+		customer_api = csb.Customer(secret_key=secret_key, public_key=self.public_key)
 
 		customer_api.fetch_customer(email)
 		if not customer_api.ctx.status:
@@ -72,7 +72,7 @@ class CSBSettings(Document):
 		if not customer_api.ctx.status:
 			frappe.throw(customer_api.ctx.message)
 
-		invoice_api = paystakk.Invoice(secret_key=secret_key, public_key=self.public_key)
+		invoice_api = csb.Invoice(secret_key=secret_key, public_key=self.public_key)
 
 		identifier = hash('{0}{1}{2}'.format(amount, description, slug))
 		invoice_api.create_invoice(customer=customer_api.customer_code,
