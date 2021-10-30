@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import frappe
 import csb
-import requests, base64
+import base64
 from frappe import _
 from frappe.integrations.utils import create_payment_gateway
 from frappe.model.document import Document
@@ -36,11 +36,10 @@ class PaystackSettings(Document):
 	#	api = paystakk.TransferControl(secret_key=self.secret_key, public_key=self.public_key)
 		try:
 	#		api.get_balance()
-			secret = self.get_password(fieldname="secret_key", raise_exception=False)
-                	usrPass = "self.public_key:secret"
-        	        b64Val = base64.b64encode(usrPass)
 	                api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
-			requests.post(api_URL,headers={"Authorization": "Basic %s" % b64Val},data=payload) 
+			base64string = base64.encodebytes(('%s:%s' % (public_key, secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
+			header = ("Authorization: Basic %s" % base64string)
+			requests.post(api_URL,header,data=payload)
 		except ConnectionError:
 			frappe.throw('There was a connection problem. Please ensure that'
 						 ' you have a working internet connection.')
