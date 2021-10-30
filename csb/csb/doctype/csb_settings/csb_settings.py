@@ -26,7 +26,7 @@ class PaystackSettings(Document):
 		name = 'Paystack-{0}'.format(self.gateway_name)
 		create_payment_gateway(
 			name,
-			settings='Paystack Settings',
+			settings='CSB Settings',
 			controller=self.gateway_name
 		)
 		call_hook_method('payment_gateway_enabled', gateway=name)
