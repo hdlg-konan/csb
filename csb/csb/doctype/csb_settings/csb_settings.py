@@ -20,7 +20,7 @@ class PaystackSettings(Document):
 
 	def validate(self):
 		if not self.flags.ignore_mandatory:
-#			self.validate_credentials()
+			self.validate_credentials()
 
 	def on_update(self):
 		name = 'Paystack-{0}'.format(self.gateway_name)
