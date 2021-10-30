@@ -9,8 +9,9 @@
  "custom": 0, 
  "docstatus": 0, 
  "doctype": "DocType", 
- "document_type": "System", 
+ "document_type": "", 
  "editable_grid": 1, 
+ "engine": "InnoDB", 
  "fields": [
   {
    "allow_bulk_edit": 0, 
