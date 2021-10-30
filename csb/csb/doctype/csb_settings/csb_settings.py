@@ -36,10 +36,10 @@ class PaystackSettings(Document):
 	#	api = paystakk.TransferControl(secret_key=self.secret_key, public_key=self.public_key)
 		try:
 	#		api.get_balance()
-	                api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
-			base64string = base64.encodebytes(('%s:%s' % (public_key, secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
-			header = ("Authorization: Basic %s" % base64string)
-			requests.post(api_URL,header,data=payload)
+#	                api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
+#			base64string = base64.encodebytes(('%s:%s' % (public_key, secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
+#			header = ("Authorization: Basic %s" % base64string)
+#			requests.post(api_URL,header,data=payload)
 		except ConnectionError:
 			frappe.throw('There was a connection problem. Please ensure that'
 						 ' you have a working internet connection.')
