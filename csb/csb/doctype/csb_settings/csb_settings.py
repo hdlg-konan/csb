@@ -6,7 +6,6 @@ from __future__ import unicode_literals
 
 import frappe
 import csb
-import base64
 from frappe import _
 from frappe.integrations.utils import create_payment_gateway
 from frappe.model.document import Document
@@ -27,19 +26,15 @@ class PaystackSettings(Document):
 		name = 'Paystack-{0}'.format(self.gateway_name)
 		create_payment_gateway(
 			name,
-			settings='CSB Settings',
+			settings='Paystack Settings',
 			controller=self.gateway_name
 		)
 		call_hook_method('payment_gateway_enabled', gateway=name)
 
 	def validate_credentials(self):
-	#	api = paystakk.TransferControl(secret_key=self.secret_key, public_key=self.public_key)
+		api = paystakk.TransferControl(secret_key=self.secret_key, public_key=self.public_key)
 		try:
-	#		api.get_balance()
-#	                api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
-#			base64string = base64.encodebytes(('%s:%s' % (public_key, secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
-#			header = ("Authorization: Basic %s" % base64string)
-#			requests.post(api_URL,header,data=payload)
+			api.get_balance()
 		except ConnectionError:
 			frappe.throw('There was a connection problem. Please ensure that'
 						 ' you have a working internet connection.')
