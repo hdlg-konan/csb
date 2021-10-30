@@ -12,10 +12,10 @@ def make_payment_entry(docname):
 
 
 def update_paid_requests():
-	paystack_profiles = frappe.get_list('CSB Settings', fields=['name'])
+	paystack_profiles = frappe.get_list('Paystack Settings', fields=['name'])
 
 	for profile in paystack_profiles:
-		doc = frappe.get_doc('CSB Settings', profile['name'])
+		doc = frappe.get_doc('Paystack Settings', profile['name'])
 		secret_key = doc.get_password(fieldname='secret_key', raise_exception=False)
 		api = paystakk.Invoice(secret_key=secret_key, public_key=doc.public_key)
 		api.list_invoices(status='success')
