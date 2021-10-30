@@ -15,7 +15,7 @@ from requests import RequestException, ConnectionError
 SUPPORTED_CURRENCIES = ['NGN']
 
 
-class PaystackSettings(Document):
+class CSBSettings(Document):
 	supported_currencies = SUPPORTED_CURRENCIES
 
 	def validate(self):
@@ -23,7 +23,7 @@ class PaystackSettings(Document):
 			self.validate_credentials()
 
 	def on_update(self):
-		name = 'Paystack-{0}'.format(self.gateway_name)
+		name = 'CSB-{0}'.format(self.gateway_name)
 		create_payment_gateway(
 			name,
 			settings='CSB Settings',
