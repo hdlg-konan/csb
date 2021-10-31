@@ -36,9 +36,7 @@ class CSBSettings(Document):
 	def validate_credentials(self):
 		try:
 			secret = self.get_password(fieldname='secret_key', raise_exception=False)
-			headers = {
-    'Authorization': "Basic " + base64.b64encode('self.public_key':'self.secret_key')
-}
+			headers = {'Authorization': 'Basic '}
 			api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
 			response = requests.request("GET",api_url, headers=headers)
 		except ConnectionError:
