@@ -76,7 +76,7 @@ class CSBSettings(Document):
 			"currency": kwargs.get('currency'),
 			"order_id": kwargs.get('order_id'),
 		}
-		order = requests.request("POST","https://epaync.nc/api-payment/V4/Charge/SDKTest",headers=headers,data=payment_options)
+		order = requests.post(api_url,headers=headers,data=payment_options)
 		if order.post("status") != "SUCCESS":
 			frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
 		else:
