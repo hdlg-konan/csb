@@ -64,8 +64,7 @@ class CSBSettings(Document):
 			'customer_name': kwargs.get('payer_name')
 		}
 		
-		def _throw():
-		frappe.throw(_("Invalid Subscription"), exc=frappe.InvalidStatusError)
+		
 
 		secret_key = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
@@ -79,7 +78,7 @@ class CSBSettings(Document):
 		}
 		order = make_post_request("https://epaync.nc/api-payment/V4/Charge/SDKTest",hearders=headers,data=payment_options)
 		if order.post("status") != "SUCCESS":
-		_throw()
+		frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
 		
 
 
