@@ -64,7 +64,7 @@ class CSBSettings(Document):
 			'customer_name': kwargs.get('payer_name')
 		}
 		
-		integration_request = create_request_log(kwargs, "Host", "Csb")
+		
 		secret_key = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
 		headers = ("Authorization: Basic %s" % base64string)
@@ -76,7 +76,8 @@ class CSBSettings(Document):
 			"order_id": kwargs.get('order_id'),
 		}
 		order = make_post_request("https://epaync.nc/api-payment/V4/Charge/SDKTest",hearders=headers,data=payment_options)
-		order['integration_request'] = integration_request.name
-		return order
+		if order.post("status") != "SUCCESS":
+		_throw()
+		
 
 
