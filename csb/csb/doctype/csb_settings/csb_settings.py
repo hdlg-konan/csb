@@ -14,7 +14,7 @@ from frappe.model.document import Document
 from frappe.utils import call_hook_method, nowdate
 from requests import RequestException, ConnectionError
 
-SUPPORTED_CURRENCIES = ['NGN']
+SUPPORTED_CURRENCIES = ['XAF']
 
 
 class CSBSettings(Document):
@@ -63,33 +63,20 @@ class CSBSettings(Document):
 			'order_id': kwargs.get('order_id'),
 			'customer_name': kwargs.get('payer_name')
 		}
-
+		
+		integration_request = create_request_log(kwargs, "Host", "Csb")
 		secret_key = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
 		headers = ("Authorization: Basic %s" % base64string)
 		api_url = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
 
-		customer_api = csb.Customer(secret_key=secret_key, public_key=self.public_key)
+		payment_options = {
+			"amount": kwargs.get('amount'),
+			"currency": kwargs.get('currency'),
+			"order_id": kwargs.get('order_id'),
+		}
+		order = make_post_request("https://epaync.nc/api-payment/V4/Charge/SDKTest",hearders=headers,data=payment_options)
+		order['integration_request'] = integration_request.name
+		return order
 
-		customer_api.fetch_customer(email)
-		if not customer_api.ctx.status:
-			customer_api.create_customer(email=email)
-
-		if not customer_api.ctx.status:
-			frappe.throw(customer_api.ctx.message)
-
-		invoice_api = csb.Invoice(secret_key=secret_key, public_key=self.public_key)
-
-		identifier = hash('{0}{1}{2}'.format(amount, description, slug))
-		invoice_api.create_invoice(customer=customer_api.customer_code,
-								   amount=amount, 
-								   currency=currnency,
-								   invoice_number=identifier, metadata=metadata)
-
-		if not invoice_api.ctx.status:
-			frappe.throw(invoice_api.ctx.message)
-		else:
-			payment_url = 'https://api.paystack.co/paymentrequest/notify/{invoice_code}'.format(
-				invoice_code=invoice_api.invoice_code)
-			return payment_url
 
