@@ -78,10 +78,10 @@ class CSBSettings(Document):
 		}
 		order = make_post_request("https://epaync.nc/api-payment/V4/Charge/SDKTest",hearders=headers,data=payment_options)
 		if order.post("status") != "SUCCESS":
-		frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
-		else 
+			frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
+		else:
 			error = order.post("status")
-		frappe.throw(api.ctx.message, title=_(error))
+			frappe.throw(api.ctx.message, title=_(error))
 		
 
 
