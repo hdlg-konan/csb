@@ -36,9 +36,11 @@ class CSBSettings(Document):
 	def validate_credentials(self):
 		try:
 			secret = self.get_password(fieldname='secret_key', raise_exception=False)
-			header = {'Authorization' : "Basic %s" %  base64.b64encode(<public_key>:<secret>)}
+			headers = {
+    'Authorization': "Basic %s" % base64.b64encode(public_key>:<secret_key>)
+}
 			api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
-			response = requests.request("GET",api_url, headers=header)
+			response = requests.request("GET",api_url, headers=headers)
 		except ConnectionError:
 			frappe.throw('There was a connection problem. Please ensure that'
 						 ' you have a working internet connection.')
