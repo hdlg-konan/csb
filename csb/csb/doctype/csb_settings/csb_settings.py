@@ -36,7 +36,7 @@ class CSBSettings(Document):
 	def validate_credentials(self):
 		try:
 			secret = self.get_password(fieldname='secret_key', raise_exception=False)
-			base64string = base64.encodebytes(('%s:%s' % (public_key, secret)).encode('utf8')).decode('utf8').replace('\n', '')
+			base64string = base64.encodebytes(('%s:%s' % (self.public_key, secret)).encode('utf8')).decode('utf8').replace('\n', '')
 			headers = ("Authorization: Basic %s" % base64string)
 			api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
 			response = requests.request("GET",api_url, headers=headers)
