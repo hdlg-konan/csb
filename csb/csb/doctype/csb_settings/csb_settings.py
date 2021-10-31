@@ -37,7 +37,7 @@ class CSBSettings(Document):
 		try:
 			secret = self.get_password(fieldname='secret_key', raise_exception=False)
 			headers = {
-    'Authorization': "Basic %s" % base64.b64encode(public_key>:<secret_key>)
+    'Authorization': "Basic " + base64.b64encode('self.public_key':'self.secret_key')
 }
 			api_URL = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
 			response = requests.request("GET",api_url, headers=headers)
