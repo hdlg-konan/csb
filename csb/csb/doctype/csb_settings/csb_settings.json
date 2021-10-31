@@ -181,7 +181,7 @@
  "max_attachments": 0, 
  "modified": "2018-05-19 14:40:58.284304", 
  "modified_by": "Administrator", 
- "module": "Integrations", 
+ "module": "Csb", 
  "name": "CSB Settings", 
  "name_case": "", 
  "owner": "Administrator", 
