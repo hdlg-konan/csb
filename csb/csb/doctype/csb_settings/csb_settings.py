@@ -57,7 +57,6 @@ class CSBSettings(Document):
 	def get_payment_url(self, **kwargs):
 		amount = kwargs.get('amount')
 		currency = kwargs.get ('currency')
-		description = kwargs.get('description')
 		email = kwargs.get('payer_email')
 		metadata = {
 			'order_id': kwargs.get('order_id'),
@@ -68,13 +67,14 @@ class CSBSettings(Document):
 
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
 		api_url = "https://epaync.nc/api-payment/V4/Charge/CreatePayment"
+		headers = ("Authorization: Basic %s" % base64string)  
 
 		payment_options = {
 			"amount": kwargs.get('amount'),
 			"currency": kwargs.get('currency'),
 			"order_id": kwargs.get('order_id'),
 		}
-		order = make_post_request(api_url,headers={'Authorization': 'Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA=='},data=payment_options)
+		order = make_post_request(api_url,headers=headers,data=payment_options)
 		return order
 		
 
