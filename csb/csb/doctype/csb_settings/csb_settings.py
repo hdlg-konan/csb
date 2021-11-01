@@ -69,14 +69,14 @@ class CSBSettings(Document):
 		secret_key = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
 		headers = {"Authorization: Basic %s" % base64string}
-		api_url = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
+		api_url = "https://epaync.nc/api-payment/V4/Charge/CreatePayment"
 
 		payment_options = {
 			"amount": kwargs.get('amount'),
 			"currency": kwargs.get('currency'),
 			"order_id": kwargs.get('order_id'),
 		}
-		order = requests.post(api_url,headers=headers)
+		order = requests.request("GET",api_url,headers=headers)
 		if order.post("status") != "SUCCESS":
 			frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
 		else:
