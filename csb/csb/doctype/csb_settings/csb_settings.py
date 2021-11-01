@@ -66,7 +66,6 @@ class CSBSettings(Document):
 		
 
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
-		headers = {"Authorization: Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA=="}
 		api_url = "https://epaync.nc/api-payment/V4/Charge/CreatePayment"
 
 		payment_options = {
@@ -74,7 +73,7 @@ class CSBSettings(Document):
 			"currency": kwargs.get('currency'),
 			"order_id": kwargs.get('order_id'),
 		}
-		order = requests.request('GET',api_url,headers=headers)
+		order = requests.request('GET',api_url,headers={"Authorization: Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA=="})
 		if order.get("status") != "SUCCESS":
 			frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
 		else:
