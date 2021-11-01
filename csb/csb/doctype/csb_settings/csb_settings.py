@@ -66,7 +66,7 @@ class CSBSettings(Document):
 		
 
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).decode('utf8').replace('\n', '')
-		headers = {"Authorization: Basic %s" % base64string}
+		headers = {"Authorization: Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA=="}
 		api_url = "https://epaync.nc/api-payment/V4/Charge/CreatePayment"
 
 		payment_options = {
