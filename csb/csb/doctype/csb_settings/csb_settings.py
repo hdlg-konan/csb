@@ -78,7 +78,7 @@ class CSBSettings(Document):
 		if order.get("status") != "SUCCESS":
 			frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
 		else:
-			error = order.post("status")
+			error = order.get("status")
 			frappe.throw(api.ctx.message, title=_(error))
 		
 
