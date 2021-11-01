@@ -68,7 +68,7 @@ class CSBSettings(Document):
 
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, self.secret_key)).encode('utf8')).replace(b'\n', b'')
 		api_url = "https://epaync.nc/api-payment/V4/Charge/SDKTest"
-		headers = {'Authorization': 'Basic {0}" .format(base64string), 'Content-Type': "application/json"}  
+		headers = {'Authorization': 'Basic %s' % base64string}  
 
 		payment_options = {
 			"amount": kwargs.get('amount'),
