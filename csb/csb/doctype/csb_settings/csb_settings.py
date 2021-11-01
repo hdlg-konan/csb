@@ -14,6 +14,7 @@ from frappe.integrations.utils import  (make_get_request, make_post_request, cre
 from frappe.model.document import Document
 from frappe.utils import call_hook_method, nowdate,get_url, cint, get_timestamp
 from requests import RequestException, ConnectionError
+from requests.auth import HTTPBasicAuth
 
 SUPPORTED_CURRENCIES = ['XAF']
 
@@ -74,7 +75,7 @@ class CSBSettings(Document):
 			"currency": kwargs.get('currency'),
 			"order_id": kwargs.get('order_id'),
 		}
-		order = make_post_request(api_url,headers=headers,data=payment_options)
+		order = requests.get(api_url,auth=HTTPBasicAuth(self.public_key, self.secret_key))
 		return order
 		
 
