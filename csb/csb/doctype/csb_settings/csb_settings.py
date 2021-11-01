@@ -16,7 +16,7 @@ from frappe.utils import call_hook_method, nowdate,get_url, cint, get_timestamp
 from requests import RequestException, ConnectionError
 from requests.auth import HTTPBasicAuth
 
-SUPPORTED_CURRENCIES = ['XAF']
+SUPPORTED_CURRENCIES = ['XPF']
 
 
 class CSBSettings(Document):
@@ -76,7 +76,8 @@ class CSBSettings(Document):
 			"order_id": kwargs.get('order_id'),
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
-		return order.json()
+
+		return order.json()['answer']['formToken']
 		
 
 
