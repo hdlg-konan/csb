@@ -74,11 +74,11 @@ class CSBSettings(Document):
 			"currency": kwargs.get('currency'),
 			"order_id": kwargs.get('order_id'),
 		}
-		order = requests.request('POST',api_url)
-		if order.post("status") != "SUCCESS":
+		order = requests.request('GET',api_url,headers=headers)
+		if order.get("status") != "SUCCESS":
 			frappe.throw(api.ctx.message, title=_("Ca fonctionne"))
 		else:
-			error = order.post("status")
+			error = order.get("status")
 			frappe.throw(api.ctx.message, title=_(error))
 		
 
