@@ -77,7 +77,7 @@ class CSBSettings(Document):
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
 
-		return order.json()['answer']['formToken']
+		return order.json()['formToken']
 		
 
 
