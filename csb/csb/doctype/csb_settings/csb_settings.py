@@ -75,6 +75,6 @@ class CSBSettings(Document):
 			"orderId": order_id,
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
-		self.authentication_token = order.json()['answer']['formToken']
-		return order.json()['answer']['formToken']
+		self.authentication_token = order.json()['status']
+		return order.json()['status']
 
