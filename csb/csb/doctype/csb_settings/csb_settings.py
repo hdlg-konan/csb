@@ -56,6 +56,13 @@ class CSBSettings(Document):
 				_('{currency} is not supported by CSB at the moment.').format(currency))
 
 	def get_payment_url(self, **kwargs):
+		amount = kwargs.get('amount')
+		currency = kwargs.get ('currency')
+		email = kwargs.get('payer_email')
+		metadata = {
+			'order_id': kwargs.get('order_id'),
+			'customer_name': kwargs.get('payer_name')
+		}
 		
 		
 		secret = self.get_password(fieldname='secret_key', raise_exception=False)
@@ -64,9 +71,9 @@ class CSBSettings(Document):
 		headers = {'Authorization': 'Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==', 'Content-Type': "application/json"}  
 
 		payment_options = {
-			"amount": amount,
-			"currency": currency,
-			"orderId": order_id,
+			"amount": kwargs.get('amount'),
+			"currency": kwargs.get('currency'),
+			"orderId": kwargs.get('order_id'),
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
 
