@@ -70,9 +70,9 @@ class CSBSettings(Document):
 		headers = {'Authorization': 'Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==', 'Content-Type': "application/json"}  
 
 		payment_options = {
-			"amount": amount,
-			"currency": currency,
-			"orderId": order_id,
+			"amount": "900",
+			"currency": "XPF",
+			"orderId": "1",
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
 
