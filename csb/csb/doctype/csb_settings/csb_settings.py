@@ -75,7 +75,7 @@ class CSBSettings(Document):
 			"currency": currency,
 			"orderId": order_id,
 			"customer": {
-				"email": email
+				"email": "admin@leconnecthe.com"
 			}
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
