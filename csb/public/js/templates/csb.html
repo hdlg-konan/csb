@@ -9,7 +9,7 @@
   <!-- Javascript library. Should be loaded in head section -->
   <script 
    src="https://epaync.nc/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js" 
-   kr-public-key={% self.public_key %} 
+   kr-public-key={ csb.public_key } 
    kr-post-url-success="paid.html">
   </script>
 
@@ -24,7 +24,7 @@
 <body>
   <!-- payment form -->
   <div class="kr-embedded" 
-   kr-form-token={% self.authentication_token %}>
+   kr-form-token={ csb.authentication_token }>
 
     <!-- payment form fields -->
     <div class="kr-pan"></div>
