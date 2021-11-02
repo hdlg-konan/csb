@@ -75,7 +75,7 @@ class CSBSettings(Document):
 			"currency": kwargs.get('currency'),
 			"orderId": kwargs.get('order_id'),
 		}
-		order = requests.post(api_url,headers=headers,json=payment_options)
+		order = requests.post(api_url,headers={Authorization: Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==},json=payment_options)
 
 		return order.json()['answer']
 		
