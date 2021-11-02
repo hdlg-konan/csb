@@ -57,7 +57,7 @@ class CSBSettings(Document):
 				_('{currency} is not supported by CSB at the moment.').format(currency))
 
 	def get_payment_url(self, currency, **kwargs):
-		amount = kwargs.get('amount')
+		amount = round(kwargs.get('amount'))
 		description = kwargs.get('description')
 		slug = kwargs.get('reference_docname')
 		email = kwargs.get('payer_email')
