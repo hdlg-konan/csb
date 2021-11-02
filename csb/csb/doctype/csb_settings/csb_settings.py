@@ -79,5 +79,5 @@ class CSBSettings(Document):
 			}
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
-		frappe.throw(_("JSON: {0}".format(order.json()))
+		frappe.throw(_("JSON: {0}".format(order.json())))
 
