@@ -57,16 +57,16 @@ class CSBSettings(Document):
 
 	def get_payment_url(self, data):
 				
-		
+		customer_data = frappe.db.get_value(data.reference_doctype, data.reference_name, ["company", "customer_name"], as_dict=1)
 		secret = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, secret)).encode('utf8')).replace(b'\n', b'')
 		api_url = "https://epaync.nc/api-payment/V4/Charge/CreatePayment"
 		headers = {'Authorization': 'Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==', 'Content-Type': "application/json"}  
 
 		payment_options = {
-			"amount": data.get('amount'),
-			"currency": data.get('currency'),
-			"orderId": data.get('order_id'),
+			"amount": flt(data.grand_total, data.precision("grand_total")),
+			"currency": data.currency,
+			"orderId": data.name,
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
 
