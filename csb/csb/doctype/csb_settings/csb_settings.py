@@ -8,6 +8,7 @@ import frappe
 import csb
 import requests
 import base64
+import json
 from frappe import _
 from frappe.integrations.utils import  (make_get_request, make_post_request, create_request_log,
 	create_payment_gateway)
@@ -73,6 +74,9 @@ class CSBSettings(Document):
 			"amount": amount,
 			"currency": currency,
 			"orderId": order_id,
+			"customer": {
+				"email": email
+			}
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
 		self.authentication_token = order.json()['status']
