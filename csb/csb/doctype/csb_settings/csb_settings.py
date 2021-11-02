@@ -68,14 +68,14 @@ class CSBSettings(Document):
 		secret = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, secret)).encode('utf8')).replace(b'\n', b'')
 		api_url = "https://epaync.nc/api-payment/V4/Charge/CreatePayment"
-		headers = {'Authorization': 'Basic %s' % base64string, 'Content-Type': "application/json"}  
+		headers = {'Authorization': 'Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==', 'Content-Type': "application/json"}  
 
 		payment_options = {
 			"amount": kwargs.get('amount'),
 			"currency": kwargs.get('currency'),
 			"orderId": kwargs.get('order_id'),
 		}
-		order = requests.post(api_url,headers={Authorization: Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==},json=payment_options)
+		order = requests.post(api_url,headers=headers,json=payment_options)
 
 		return order.json()['answer']
 		
