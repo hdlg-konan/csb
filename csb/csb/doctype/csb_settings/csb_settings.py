@@ -55,8 +55,14 @@ class CSBSettings(Document):
 			frappe.throw(
 				_('{currency} is not supported by CSB at the moment.').format(currency))
 
-	def get_payment_url(self):
-				
+	def get_payment_url(self, **kwargs):
+		amount = kwargs.get('amount')
+		description = kwargs.get('description')
+		slug = kwargs.get('reference_docname')
+		email = kwargs.get('payer_email')
+		order_id = kwargs.get('order_id')
+		customer_name = kwargs.get('payer_name')
+						
 		
 		secret = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, secret)).encode('utf8')).replace(b'\n', b'')
@@ -64,9 +70,9 @@ class CSBSettings(Document):
 		headers = {'Authorization': 'Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==', 'Content-Type': "application/json"}  
 
 		payment_options = {
-			"amount": self.data.amount,
-			"currency": self.data.currency,
-			"orderId": self.data.name,
+			"amount": amount,
+			"currency": currency,
+			"orderId": order_id,
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
 
