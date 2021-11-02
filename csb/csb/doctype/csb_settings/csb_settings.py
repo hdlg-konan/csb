@@ -55,7 +55,7 @@ class CSBSettings(Document):
 			frappe.throw(
 				_('{currency} is not supported by CSB at the moment.').format(currency))
 
-	def get_payment_url(self, **kwargs):
+	def get_payment_url(self, currency, **kwargs):
 		amount = kwargs.get('amount')
 		description = kwargs.get('description')
 		slug = kwargs.get('reference_docname')
