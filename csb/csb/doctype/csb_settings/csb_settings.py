@@ -74,7 +74,7 @@ class CSBSettings(Document):
 			"currency": currency,
 			"orderId": order_id,
 		}
-		order = requests.post(api_url,headers=headers,data=payment_options)
+		order = requests.post(api_url,headers=headers,json=payment_options)
 
-		return order
+		return order.json()
 
