@@ -56,14 +56,7 @@ class CSBSettings(Document):
 				_('{currency} is not supported by CSB at the moment.').format(currency))
 
 	def get_payment_url(self, **kwargs):
-		amount = kwargs.get('amount')
-		currency = kwargs.get ('currency')
-		email = kwargs.get('payer_email')
-		metadata = {
-			'order_id': kwargs.get('order_id'),
-			'customer_name': kwargs.get('payer_name')
-		}
-		
+				
 		
 		secret = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, secret)).encode('utf8')).replace(b'\n', b'')
