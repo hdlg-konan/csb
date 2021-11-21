@@ -67,7 +67,7 @@ class CSBSettings(Document):
 		
 		secret = self.get_password(fieldname='secret_key', raise_exception=False)
 		base64string = base64.encodebytes(('%s:%s' % (self.public_key, secret)).encode('utf8')).replace(b'\n', b'')
-		api_url = "https://epaync.nc/api-payment/V4/Charge/CreatePayment"
+		api_url = "https://epaync.nc/vads-payment/"
 		headers = {'Authorization': 'Basic MTU1NzgwNTM6dGVzdHBhc3N3b3JkX3JCU3lrWXBxNkRMYW1GQVNXS1dGdUZtdlR6MU5lUkRiZ2ROT2ZkTnEwN2UxaA==', 'Content-Type': "application/json"}  
 
 		payment_options = {
