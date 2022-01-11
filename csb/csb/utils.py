@@ -3,7 +3,7 @@ import csb
 import json,datetime
 from urllib.parse import parse_qs
 from frappe.utils import get_request_session
-from frappe import 
+from frappe import _
 
 
 def make_payment_entry(docname):
