@@ -58,31 +58,6 @@ def make_post_request(url, **kwargs):
 def make_put_request(url, **kwargs):
 	return make_request('PUT', url, **kwargs)
 
-def create_request_log(data, integration_type, service_name, name=None, error=None):
-	if isinstance(data, str):
-		data = json.loads(data)
-
-	if isinstance(error, str):
-		error = json.loads(error)
-
-	integration_request = frappe.get_doc({
-		"doctype": "Integration Request",
-		"integration_type": integration_type,
-		"integration_request_service": service_name,
-		"reference_doctype": data.get("reference_doctype"),
-		"reference_docname": data.get("reference_docname"),
-		"error": json.dumps(error, default=json_handler),
-		"data": json.dumps(data, default=json_handler)
-	})
-
-	if name:
-		integration_request.flags._name = name
-
-	integration_request.insert(ignore_permissions=True)
-	frappe.db.commit()
-
-	return integration_request
-
 def get_payment_gateway_controller(payment_gateway):
 	'''Return payment gateway controller'''
 	gateway = frappe.get_doc("Payment Gateway", payment_gateway)
