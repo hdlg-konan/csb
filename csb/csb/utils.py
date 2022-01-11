@@ -58,21 +58,6 @@ def make_post_request(url, **kwargs):
 def make_put_request(url, **kwargs):
 	return make_request('PUT', url, **kwargs)
 
-def get_payment_gateway_controller(payment_gateway):
-	'''Return payment gateway controller'''
-	gateway = frappe.get_doc("Payment Gateway", payment_gateway)
-	if gateway.gateway_controller is None:
-		try:
-			return frappe.get_doc("{0} Settings".format(payment_gateway))
-		except Exception:
-			frappe.throw(_("{0} Settings not found").format(payment_gateway))
-	else:
-		try:
-			return frappe.get_doc(gateway.gateway_settings, gateway.gateway_controller)
-		except Exception:
-			frappe.throw(_("{0} Settings not found").format(payment_gateway))
-
-
 @frappe.whitelist(allow_guest=True, xss_safe=True)
 def get_checkout_url(**kwargs):
 	try:
