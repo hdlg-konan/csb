@@ -78,7 +78,5 @@ class CSBSettings(Document):
 			}
 		}
 		order = requests.post(api_url,headers=headers,json=payment_options)
-		frappe.throw(_("JSON: {0}".format(order.json())))
-		self.authentication_token = order.json()['answer']['formToken']
-		return order.json()['answer']['formToken']
+		
 
